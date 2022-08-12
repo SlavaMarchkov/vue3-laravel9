@@ -1,0 +1,22 @@
+import { ref } from "vue";
+import axios from "axios";
+
+export default function useCategories() {
+    const categories = ref({});
+
+    const getCategories = async () => {
+        axios
+            .get("/api/categories")
+            .then((response) => {
+                categories.value = response.data.data;
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
+    return {
+        categories,
+        getCategories,
+    };
+}
